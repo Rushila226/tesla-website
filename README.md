@@ -1,6 +1,7 @@
  This project simulates user login/signup, displays electric vehicle products, and lets logged-in users place orders. Built as part of an internship assignment.
 
-Features
+Features:
+
 Responsive product grid layout
 
 Smooth navigation and scroll behavior
