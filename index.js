@@ -78,7 +78,8 @@ const products = [
     price: 5500000,
     images: [
       'https://images.unsplash.com/photo-1599912027806-cfab75bc4ec4?w=800',
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800'
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
+      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800'
     ],
     specs: {
       range: '525 km',
