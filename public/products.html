@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla - Accelerating the World's Transition to Sustainable Energy</title>
+    <title>Tesla Vehicles - Electric Cars</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -27,18 +28,25 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Accelerating the World's Transition to Sustainable Energy</h1>
-            <p>Experience the future of mobility with our revolutionary electric vehicles designed for performance, efficiency, and sustainability</p>
-            <button class="cta-button" onclick="window.location.href='products.html'">Explore Vehicles</button>
-        </div>
-        <div class="hero-background">
-            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&h=1080&fit=crop" alt="Tesla Model S" class="hero-bg-image">
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2>Tesla Vehicles</h2>
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be loaded dynamically -->
+            </div>
         </div>
     </section>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
 
     <!-- Auth Modal -->
     <div id="auth-modal" class="modal">
@@ -49,7 +57,7 @@
                     <button class="auth-tab active" data-tab="login">Login</button>
                     <button class="auth-tab" data-tab="signup">Sign Up</button>
                 </div>
-
+                
                 <form id="login-form" class="auth-form active">
                     <h3>Welcome Back</h3>
                     <div class="input-group">
@@ -88,6 +96,6 @@
         </div>
     </div>
 
-    <script src="landing.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

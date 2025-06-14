@@ -48,8 +48,8 @@ const sampleProducts = [
     type: 'car',
     price: 7500000,
     images: [
-      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
-      'https://images.unsplash.com/photo-1549399297-8fe8de03c5b0?w=800'
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800'
     ],
     specs: {
       range: '520 km',
@@ -65,8 +65,8 @@ const sampleProducts = [
     type: 'car',
     price: 5500000,
     images: [
-      'https://images.unsplash.com/photo-1605515298946-d062f2e9cd14?w=800',
-      'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800'
+      'https://images.unsplash.com/photo-1599912027806-cfab75bc4ec4?w=800',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800'
     ],
     specs: {
       range: '525 km',
