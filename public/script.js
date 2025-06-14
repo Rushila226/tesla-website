@@ -6,6 +6,60 @@ let products = [];
 let currentProductImages = [];
 let currentImageIndex = 0;
 
+// Sample product data (moved from backend)
+const sampleProducts = [
+  {
+    id: 1,
+    name: 'Model X Elite',
+    type: 'car',
+    price: 7500000, // Price in rupees
+    images: [
+      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800',
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800'
+    ],
+    specs: {
+      range: '520 km',
+      acceleration: '3.8s 0-100',
+      topSpeed: '250 km/h',
+      seating: '7 seats'
+    },
+    description: 'Premium electric SUV with falcon wing doors'
+  },
+  {
+    id: 2,
+    name: 'Model S Pro',
+    type: 'car',
+    price: 8500000,
+    images: [
+      'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800',
+      'https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=800'
+    ],
+    specs: {
+      range: '628 km',
+      acceleration: '2.1s 0-100',
+      topSpeed: '322 km/h',
+      seating: '5 seats'
+    },
+    description: 'High-performance luxury sedan'
+  },
+  {
+    id: 3,
+    name: 'Solar Panel Pro',
+    type: 'energy',
+    price: 350000,
+    images: [
+      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800'
+    ],
+    specs: {
+      power: '400W per panel',
+      efficiency: '22.8%',
+      warranty: '25 years',
+      coverage: '2m x 1m'
+    },
+    description: 'Advanced solar panels for sustainable energy'
+  }
+];
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -85,14 +139,10 @@ function setupEventListeners() {
     });
 }
 
-async function loadProducts() {
-    try {
-        const response = await fetch('/api/products');
-        products = await response.json();
-        displayProducts();
-    } catch (error) {
-        console.error('Error loading products:', error);
-    }
+function loadProducts() {
+    // Use local data instead of API call
+    products = sampleProducts;
+    displayProducts();
 }
 
 function displayProducts() {
@@ -116,7 +166,7 @@ function displayProducts() {
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
-    card.onclick = () => openProductModal(product);
+    card.onclick = () => openProductModal(product.id);
     
     card.innerHTML = `
         <img src="${product.images[0]}" alt="${product.name}" class="product-image">
@@ -248,44 +298,35 @@ function switchAuthTab(tabType) {
     document.getElementById(`${tabType}-form`).classList.add('active');
 }
 
-async function handleLogin(e) {
+function handleLogin(e) {
     e.preventDefault();
     
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     const messageEl = document.getElementById('login-message');
     
-    try {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        authToken = 'local-token-' + Date.now();
+        currentUser = { id: user.id, email: user.email, name: user.name };
+        localStorage.setItem('authToken', authToken);
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         
-        const data = await response.json();
+        showMessage(messageEl, 'Login successful', 'success');
+        updateAuthUI();
         
-        if (response.ok) {
-            authToken = data.token;
-            currentUser = data.user;
-            localStorage.setItem('authToken', authToken);
-            
-            showMessage(messageEl, data.message, 'success');
-            updateAuthUI();
-            
-            setTimeout(() => {
-                document.getElementById('auth-modal').style.display = 'none';
-            }, 1500);
-        } else {
-            showMessage(messageEl, data.message, 'error');
-        }
-    } catch (error) {
-        showMessage(messageEl, 'Connection error. Please try again.', 'error');
+        setTimeout(() => {
+            document.getElementById('auth-modal').style.display = 'none';
+        }, 1500);
+    } else {
+        showMessage(messageEl, 'Invalid credentials', 'error');
     }
 }
 
-async function handleSignup(e) {
+function handleSignup(e) {
     e.preventDefault();
     
     const name = document.getElementById('signup-name').value;
@@ -293,42 +334,46 @@ async function handleSignup(e) {
     const password = document.getElementById('signup-password').value;
     const messageEl = document.getElementById('signup-message');
     
-    try {
-        const response = await fetch('/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name, email, password }),
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            authToken = data.token;
-            currentUser = data.user;
-            localStorage.setItem('authToken', authToken);
-            
-            showMessage(messageEl, data.message, 'success');
-            updateAuthUI();
-            
-            setTimeout(() => {
-                document.getElementById('auth-modal').style.display = 'none';
-            }, 1500);
-        } else {
-            showMessage(messageEl, data.message, 'error');
-        }
-    } catch (error) {
-        showMessage(messageEl, 'Connection error. Please try again.', 'error');
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    
+    // Check if user exists
+    if (users.find(u => u.email === email)) {
+        showMessage(messageEl, 'User already exists', 'error');
+        return;
     }
+    
+    // Create new user
+    const newUser = {
+        id: users.length + 1,
+        email,
+        password, // In real app, this should be hashed
+        name
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    authToken = 'local-token-' + Date.now();
+    currentUser = { id: newUser.id, email: newUser.email, name: newUser.name };
+    localStorage.setItem('authToken', authToken);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    showMessage(messageEl, 'Account created successfully', 'success');
+    updateAuthUI();
+    
+    setTimeout(() => {
+        document.getElementById('auth-modal').style.display = 'none';
+    }, 1500);
 }
 
-async function placeOrder(productId) {
+function placeOrder(productId) {
     if (!currentUser) {
         document.getElementById('auth-modal').style.display = 'block';
         return;
     }
     
+    const product = products.find(p => p.id === productId);
     const customizations = {
         color: document.getElementById('color')?.value,
         interior: document.getElementById('interior')?.value,
@@ -336,33 +381,33 @@ async function placeOrder(productId) {
         quantity: document.getElementById('quantity')?.value || 1
     };
     
-    try {
-        const response = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`
-            },
-            body: JSON.stringify({ productId, customizations }),
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            showNotification('Order placed successfully!');
-            document.getElementById('product-modal').style.display = 'none';
-        } else {
-            alert(data.message);
-        }
-    } catch (error) {
-        alert('Error placing order. Please try again.');
-    }
+    // Store order in localStorage
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    const order = {
+        id: orders.length + 1,
+        userId: currentUser.id,
+        productId: productId,
+        productName: product.name,
+        customizations: customizations,
+        price: product.price,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+    };
+    
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    showNotification('Order placed successfully!');
+    document.getElementById('product-modal').style.display = 'none';
 }
 
 function checkAuthStatus() {
     if (authToken) {
-        // In a real app, verify token with server
-        updateAuthUI();
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            updateAuthUI();
+        }
     }
 }
 
@@ -381,6 +426,7 @@ function logout() {
     currentUser = null;
     authToken = null;
     localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
     updateAuthUI();
     showNotification('Logged out successfully!');
 }
