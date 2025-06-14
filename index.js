@@ -22,26 +22,9 @@ const orders = [];
 const products = [
   {
     id: 1,
-    name: 'Model X Elite',
+    name: 'Model S',
     type: 'car',
-    price: 7500000, // Price in rupees
-    images: [
-      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800',
-      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800'
-    ],
-    specs: {
-      range: '520 km',
-      acceleration: '3.8s 0-100',
-      topSpeed: '250 km/h',
-      seating: '7 seats'
-    },
-    description: 'Premium electric SUV with falcon wing doors'
-  },
-  {
-    id: 2,
-    name: 'Model S Pro',
-    type: 'car',
-    price: 8500000,
+    price: 8500000, // Price in rupees
     images: [
       'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800',
       'https://images.unsplash.com/photo-1616422285623-13ff0162193c?w=800'
@@ -52,23 +35,58 @@ const products = [
       topSpeed: '322 km/h',
       seating: '5 seats'
     },
-    description: 'High-performance luxury sedan'
+    description: 'Flagship luxury sedan with tri-motor all-wheel drive'
+  },
+  {
+    id: 2,
+    name: 'Model 3',
+    type: 'car',
+    price: 4500000,
+    images: [
+      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800',
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800'
+    ],
+    specs: {
+      range: '568 km',
+      acceleration: '3.1s 0-100',
+      topSpeed: '261 km/h',
+      seating: '5 seats'
+    },
+    description: 'Mid-size luxury sedan with exceptional performance'
   },
   {
     id: 3,
-    name: 'Solar Panel Pro',
-    type: 'energy',
-    price: 350000,
+    name: 'Model X',
+    type: 'car',
+    price: 7500000,
     images: [
-      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800'
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800',
+      'https://images.unsplash.com/photo-1549399297-8fe8de03c5b0?w=800'
     ],
     specs: {
-      power: '400W per panel',
-      efficiency: '22.8%',
-      warranty: '25 years',
-      coverage: '2m x 1m'
+      range: '520 km',
+      acceleration: '3.8s 0-100',
+      topSpeed: '250 km/h',
+      seating: '7 seats'
     },
-    description: 'Advanced solar panels for sustainable energy'
+    description: 'Premium electric SUV with falcon wing doors'
+  },
+  {
+    id: 4,
+    name: 'Model Y',
+    type: 'car',
+    price: 5500000,
+    images: [
+      'https://images.unsplash.com/photo-1605515298946-d062f2e9cd14?w=800',
+      'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800'
+    ],
+    specs: {
+      range: '525 km',
+      acceleration: '3.5s 0-100',
+      topSpeed: '241 km/h',
+      seating: '7 seats'
+    },
+    description: 'Compact SUV with maximum utility and safety'
   }
 ];
 
