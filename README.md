@@ -2,14 +2,14 @@
 
 Features:
 
-Responsive product grid layout
+1) Responsive product grid layout
 
-Smooth navigation and scroll behavior
+2) Smooth navigation and scroll behavior
 
-Login & signup functionality (data stored in localStorage)
+3)Login & signup functionality (data stored in localStorage)
 
-Product modal with detailed specs and images
+4) Product modal with detailed specs and images
 
-Simulated order placement with custom options
+5) Simulated order placement with custom options
 
-Basic UI feedback (notifications, error messages)
+6) Basic UI feedback (notifications, error messages)
