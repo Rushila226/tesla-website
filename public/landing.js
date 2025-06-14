@@ -194,3 +194,9 @@ function setupNavigation() {
         navMenu.classList.toggle('active');
     });
 }
+
+function scrollToFeatures() {
+    document.getElementById('features').scrollIntoView({ 
+        behavior: 'smooth' 
+    });
+}
